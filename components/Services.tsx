@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   Flame,
@@ -18,7 +19,7 @@ import {
  *
  * Requires:  npm i lucide-react
  * Images:    put the six photos in /public/images/services/
- *            laser.jpg, plasma.jpg, bending.jpg, welding.jpg, fabrication.jpg, machined.jpg
+ *            laser.webp, plasma.webp, bending.webp, welding.webp, fabrication.webp, machined.webp
  *            (the cards still render with a dark placeholder if a file is missing)
  *
  * Usage:     import Services from "@/components/Services";  <Services />
@@ -82,20 +83,20 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
   const number = String(index + 1).padStart(2, "0");
 
   return (
-    <article className="group relative overflow-hidden rounded-md bg-white shadow-[0_6px_24px_-8px_rgba(0,0,0,0.15)] ring-1 ring-black/[0.03]">
+    <article className="services-card group relative overflow-hidden rounded-md bg-white shadow-[0_6px_24px_-8px_rgba(0,0,0,0.15)] ring-1 ring-black/[0.03]">
       {/* image */}
-      <div className="relative aspect-[16/7.6] w-full bg-neutral-900">
+      <div className="relative aspect-[16/7.6] w-full overflow-hidden bg-neutral-900">
         <Image
           src={service.image}
           alt={service.title}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="services-photo object-cover"
         />
         {/* red wedge on the left edge */}
         <div
           aria-hidden
-          className="absolute inset-0 bg-red-600/85"
+          className="services-wedge absolute inset-0 bg-red-600/85"
           style={{ clipPath: "polygon(0 0, 28% 0, 0 78%)" }}
         />
       </div>
@@ -103,7 +104,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       {/* body */}
       <div className="relative px-5 pb-6 pt-0 sm:px-6">
         {/* icon tile (overlaps image) */}
-        <span className="absolute -top-5 left-5 flex h-14 w-14 items-center justify-center rounded-lg border-[3px] border-white bg-red-600 text-white shadow-md sm:left-6">
+        <span className="services-icon absolute -top-5 left-5 flex h-14 w-14 items-center justify-center rounded-lg border-[3px] border-white bg-red-600 text-white shadow-md sm:left-6">
           <Icon className="h-6 w-6" strokeWidth={1.8} />
         </span>
 
@@ -115,7 +116,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           {number}
         </span>
 
-        <h3 className="pt-5 text-xl font-bold leading-tight text-[#0b0d10] sm:text-[22px] pl-[4.75rem]">
+        <h3 className="pt-5 pl-[4.75rem] text-xl font-bold leading-tight text-[#0b0d10] sm:text-[22px]">
           {service.title}
         </h3>
 
@@ -125,10 +126,10 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 
         <Link
           href={service.href}
-          className="mt-5 inline-flex items-center gap-3 text-base font-semibold text-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2"
+          className="services-link mt-5 inline-flex items-center gap-3 text-base font-semibold text-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2"
         >
           Learn More
-          <span className="flex h-9 w-11 items-center justify-center rounded-md bg-red-50 transition-colors group-hover:bg-red-600 group-hover:text-white">
+          <span className="services-arrow flex h-9 w-11 items-center justify-center rounded-md bg-red-50 transition-colors group-hover:bg-red-600 group-hover:text-white">
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </span>
         </Link>
@@ -138,8 +139,41 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 }
 
 export default function Services() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -35px 0px" }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="services" className="relative overflow-hidden bg-[#fafafa] py-14 sm:py-16 lg:py-20">
+    <section
+      ref={sectionRef}
+      id="services"
+      className={`services-section relative overflow-hidden bg-[#fafafa] py-14 sm:py-16 lg:py-20 ${
+        isVisible ? "is-visible" : ""
+      }`}
+    >
       {/* top-left red slash */}
       <div aria-hidden className="pointer-events-none absolute left-0 top-0 hidden h-[220px] w-[160px] sm:block">
         <div
@@ -162,9 +196,9 @@ export default function Services() {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
+      <div className="services-content relative mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
         {/* heading */}
-        <header className="mx-auto max-w-3xl text-center">
+        <header className="services-heading mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-3">
             <span className="h-[3px] w-11 bg-red-600" />
             <span className="text-sm font-semibold uppercase tracking-wide text-red-600">Services</span>
@@ -179,12 +213,94 @@ export default function Services() {
         </header>
 
         {/* grid */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-7">
+        <div className="services-grid mt-10 grid gap-6 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-7">
           {SERVICES.map((s, i) => (
             <ServiceCard key={s.title} service={s} index={i} />
           ))}
         </div>
       </div>
+
+      <style>{`
+        .services-heading {
+          opacity: 0;
+          transform: translateY(22px);
+          transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .services-card {
+          opacity: 0;
+          transform: translateY(28px);
+          transition:
+            opacity 700ms ease,
+            transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 350ms ease;
+        }
+
+        .services-section.is-visible .services-heading,
+        .services-section.is-visible .services-card {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .services-section.is-visible .services-card:nth-child(1) { transition-delay: 100ms; }
+        .services-section.is-visible .services-card:nth-child(2) { transition-delay: 190ms; }
+        .services-section.is-visible .services-card:nth-child(3) { transition-delay: 280ms; }
+        .services-section.is-visible .services-card:nth-child(4) { transition-delay: 370ms; }
+        .services-section.is-visible .services-card:nth-child(5) { transition-delay: 460ms; }
+        .services-section.is-visible .services-card:nth-child(6) { transition-delay: 550ms; }
+
+        .services-photo {
+          transform: scale(1.015);
+          transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .services-card:hover .services-photo {
+          transform: scale(1.07);
+        }
+
+        .services-card:hover {
+          box-shadow: 0 22px 42px -24px rgba(0, 0, 0, 0.35);
+        }
+
+        .services-icon {
+          transition: transform 350ms ease, box-shadow 350ms ease;
+        }
+
+        .services-card:hover .services-icon {
+          transform: translateY(-3px) rotate(-3deg);
+          box-shadow: 0 10px 22px -8px rgba(220, 38, 38, 0.55);
+        }
+
+        .services-wedge {
+          transition: opacity 350ms ease;
+        }
+
+        .services-card:hover .services-wedge {
+          opacity: 0.7;
+        }
+
+        .services-arrow {
+          transition: background-color 250ms ease, color 250ms ease;
+        }
+
+        .services-link:hover .services-arrow svg {
+          transform: translateX(3px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .services-heading,
+          .services-card,
+          .services-photo,
+          .services-icon,
+          .services-wedge,
+          .services-arrow,
+          .services-arrow svg {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

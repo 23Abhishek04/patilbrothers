@@ -73,8 +73,8 @@ const FEATURES = [
 
 export default function Hero() {
   return (
-    <section className="relative isolate flex min-h-screen w-full items-center overflow-hidden bg-black">
-      {/* Background image — put your photo at /public/images/hero-bg.jpg */}
+    <section className="relative isolate flex min-h-screen w-full items-center overflow-hidden bg-[#17191d]">
+      {/* Background image — place the image at /public/images/hero-bg.png */}
       <Image
         src="/images/hero-bg.png"
         alt="Laser cutting machine fabricating sheet metal"
@@ -84,22 +84,23 @@ export default function Hero() {
         className="-z-30 object-cover object-[75%_center] md:object-right"
       />
 
-      {/* Dark overlays for text readability */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-r from-black via-black/80 to-black/10 max-md:from-black/90 max-md:via-black/75 max-md:to-black/50" />
-      <div className="absolute inset-0 -z-20 bg-gradient-to-t from-black via-transparent to-black/60" />
+      {/* Softer charcoal overlays: brighter overall while keeping text readable */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#17191d]/95 via-[#17191d]/82 to-[#17191d]/35 max-md:from-[#17191d]/92 max-md:via-[#17191d]/82 max-md:to-[#17191d]/60" />
+      <div className="absolute inset-0 -z-20 bg-gradient-to-t from-[#17191d]/80 via-transparent to-[#17191d]/45" />
+      <div className="absolute inset-0 -z-20 bg-black/[0.06]" />
 
       {/* Red diagonal accents */}
-      <div className="pointer-events-none absolute -left-16 top-0 -z-10 h-[45%] w-40 -skew-x-[20deg] bg-gradient-to-b from-red-700/70 to-transparent sm:w-56" />
-      <div className="pointer-events-none absolute -left-10 bottom-0 -z-10 hidden h-[40%] w-24 -skew-x-[20deg] bg-gradient-to-t from-red-700/60 to-transparent md:block" />
-      <div className="pointer-events-none absolute -right-24 top-0 -z-10 hidden h-[75%] w-64 -skew-x-[20deg] bg-gradient-to-b from-red-700/60 to-transparent lg:block" />
+      <div className="pointer-events-none absolute -left-16 top-0 -z-10 h-[45%] w-40 -skew-x-[20deg] bg-gradient-to-b from-red-700/50 to-transparent sm:w-56" />
+      <div className="pointer-events-none absolute -left-10 bottom-0 -z-10 hidden h-[40%] w-24 -skew-x-[20deg] bg-gradient-to-t from-red-700/35 to-transparent md:block" />
+      <div className="pointer-events-none absolute -right-24 top-0 -z-10 hidden h-[75%] w-64 -skew-x-[20deg] bg-gradient-to-b from-red-700/35 to-transparent lg:block" />
 
       {/* Content */}
       <div className="mx-auto w-full max-w-[1440px] px-5 pb-12 pt-32 sm:px-8 sm:pt-36 lg:px-12 lg:pb-16 lg:pt-40">
         <div className="max-w-3xl">
           {/* Eyebrow */}
           <div className="flex items-center gap-3">
-            <span className="h-0.5 w-8 bg-[#ff1620] sm:w-12" />
-            <span className="text-[11px] font-medium uppercase tracking-[0.25em] text-white/80 sm:text-sm">
+            <span className="h-0.5 w-8 bg-[#ff303b] sm:w-12" />
+            <span className="text-[11px] font-medium uppercase tracking-[0.25em] text-white/90 sm:text-sm">
               Precision Sheet Metal Solutions
             </span>
           </div>
@@ -107,12 +108,12 @@ export default function Hero() {
           {/* Heading */}
           <h1 className="mt-5 text-[2.6rem] font-black uppercase leading-[0.95] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[5.5rem]">
             Cutting Edge
-            <span className="block text-[#ff1620]">Solutions,</span>
+            <span className="block text-[#ff303b]">Solutions,</span>
             Bent to Fit.
           </h1>
 
           {/* Description */}
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg lg:max-w-2xl">
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-[#d4d7db] sm:text-lg lg:max-w-2xl">
             High-precision sheet metal fabrication and custom manufacturing solutions for
             industries that demand quality, reliability and performance.
           </p>
@@ -121,7 +122,7 @@ export default function Hero() {
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
             <Link
               href="/contact"
-              className="group inline-block -skew-x-12 rounded-lg bg-[#ff1620] shadow-lg shadow-red-900/40 transition hover:bg-red-700"
+              className="group inline-block -skew-x-12 rounded-lg bg-[#e31e2f] shadow-lg shadow-red-900/25 transition hover:bg-red-700"
             >
               <span className="flex skew-x-12 items-center justify-center gap-3 px-8 py-4 font-semibold text-white">
                 Get a Quote
@@ -131,7 +132,7 @@ export default function Hero() {
 
             <Link
               href="/services"
-              className="group inline-block -skew-x-12 rounded-lg border border-white/30 bg-black/30 backdrop-blur-sm transition hover:border-[#ff1620]"
+              className="group inline-block -skew-x-12 rounded-lg border border-white/40 bg-[#292d32]/70 backdrop-blur-md transition hover:border-[#ff303b] hover:bg-[#383d43]/85"
             >
               <span className="flex skew-x-12 items-center justify-center gap-3 px-8 py-4 font-semibold text-white">
                 Our Services
@@ -146,15 +147,15 @@ export default function Hero() {
               <li
                 key={f.title}
                 className={`flex items-center gap-3 sm:pr-5 ${
-                  i !== 0 ? "sm:border-l sm:border-white/15 sm:pl-5" : ""
+                  i !== 0 ? "sm:border-l sm:border-white/25 sm:pl-5" : ""
                 }`}
               >
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-950/60 text-[#ff1620] ring-1 ring-red-500/20">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#34383e]/90 text-[#ff303b] ring-1 ring-white/20">
                   {f.icon}
                 </span>
                 <span className="flex flex-col">
                   <span className="text-[15px] font-semibold text-white">{f.title}</span>
-                  <span className="text-sm text-white/60">{f.text}</span>
+                  <span className="text-sm text-[#c5c9ce]">{f.text}</span>
                 </span>
               </li>
             ))}

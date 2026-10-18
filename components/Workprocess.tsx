@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
 const iconProps = {
@@ -9,7 +12,7 @@ const iconProps = {
   strokeLinecap: "round" as const,
   strokeLinejoin: "round" as const,
   className: "h-8 w-8 sm:h-9 sm:w-9",
-  "aria-hidden": true,
+  "aria-hidden": true as const,
 };
 
 type Step = {
@@ -57,7 +60,7 @@ const STEPS: Step[] = [
     icon: (
       <svg {...iconProps}>
         <circle cx="12" cy="12" r="3" />
-        <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" />
+        <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" />
       </svg>
     ),
   },
@@ -96,10 +99,40 @@ function ArrowCircle() {
 }
 
 export default function Workprocess() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="process"
-      className="relative isolate overflow-hidden bg-gradient-to-b from-white to-neutral-100 py-16 sm:py-20 lg:py-24"
+      className={`workprocess-section relative isolate overflow-hidden bg-gradient-to-b from-white to-neutral-100 py-16 sm:py-20 lg:py-24 ${
+        isVisible ? "is-visible" : ""
+      }`}
     >
       {/* Decorative background */}
       <div className="pointer-events-none absolute -left-20 top-0 -z-10 h-56 w-40 -skew-x-[22deg] bg-gradient-to-b from-red-600 to-red-300/20 sm:w-56" />
@@ -110,7 +143,7 @@ export default function Workprocess() {
         className="pointer-events-none absolute -right-10 top-10 -z-10 hidden h-80 w-80 text-neutral-200/50 md:block"
         aria-hidden="true"
       >
-        <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
+        <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
       </svg>
       <div
         className="pointer-events-none absolute bottom-6 left-3 -z-10 hidden h-28 w-36 opacity-60 sm:block"
@@ -120,9 +153,9 @@ export default function Workprocess() {
         }}
       />
 
-      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+      <div className="workprocess-content mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
         {/* Heading */}
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="workprocess-heading mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-3">
             <span className="h-0.5 w-10 bg-[#ff1620] sm:w-14" />
             <span className="text-sm font-semibold uppercase tracking-wide text-[#ff1620] sm:text-base">
@@ -139,13 +172,13 @@ export default function Workprocess() {
         </div>
 
         {/* Steps */}
-        <ol className="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:mt-16 sm:grid-cols-2 sm:gap-y-14 lg:grid-cols-4 lg:gap-x-8">
+        <ol className="workprocess-steps mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:mt-16 sm:grid-cols-2 sm:gap-y-14 lg:grid-cols-4 lg:gap-x-8">
           {STEPS.map((step, i) => {
             const isLast = i === STEPS.length - 1;
             return (
-              <li key={step.number} className="group relative">
+              <li key={step.number} className="workprocess-step group relative">
                 {/* Image */}
-                <div className="relative h-48 sm:h-52 lg:h-48 xl:h-56">
+                <div className="workprocess-image relative h-48 sm:h-52 lg:h-48 xl:h-56">
                   <div
                     className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-800"
                     style={{ clipPath: "polygon(12% 0, 100% 0, 88% 100%, 0 100%)" }}
@@ -159,14 +192,14 @@ export default function Workprocess() {
                       alt={step.title}
                       fill
                       sizes="(min-width:1024px) 25vw, (min-width:640px) 50vw, 100vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="workprocess-photo object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                   </div>
                 </div>
 
                 {/* Card body */}
-                <div className="relative -mt-px rounded-b-3xl rounded-tr-[2.5rem] bg-white px-5 pb-7 pt-12 shadow-xl shadow-neutral-300/50 sm:px-6">
+                <div className="workprocess-card relative -mt-px rounded-b-3xl rounded-tr-[2.5rem] bg-white px-5 pb-7 pt-12 shadow-xl shadow-neutral-300/50 sm:px-6">
                   {/* Icon badge */}
                   <div className="absolute left-[36%] top-0 -translate-x-1/2 -translate-y-1/2">
                     <span className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white p-1.5 shadow-lg sm:h-20 sm:w-20">
@@ -207,6 +240,72 @@ export default function Workprocess() {
           })}
         </ol>
       </div>
+
+      <style>{`
+        .workprocess-heading,
+        .workprocess-step {
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity 750ms ease, transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .workprocess-section.is-visible .workprocess-heading {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .workprocess-section.is-visible .workprocess-step {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .workprocess-section.is-visible .workprocess-step:nth-child(1) { transition-delay: 100ms; }
+        .workprocess-section.is-visible .workprocess-step:nth-child(2) { transition-delay: 220ms; }
+        .workprocess-section.is-visible .workprocess-step:nth-child(3) { transition-delay: 340ms; }
+        .workprocess-section.is-visible .workprocess-step:nth-child(4) { transition-delay: 460ms; }
+
+        .workprocess-image {
+          overflow: hidden;
+        }
+
+        .workprocess-photo {
+          transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .workprocess-step:hover .workprocess-photo {
+          transform: scale(1.06);
+        }
+
+        .workprocess-card {
+          transition: box-shadow 350ms ease, transform 350ms ease;
+        }
+
+        .workprocess-step:hover .workprocess-card {
+          transform: translateY(-5px);
+          box-shadow: 0 24px 45px -24px rgba(38, 38, 38, 0.35);
+        }
+
+        .workprocess-step .workprocess-image > div:first-child {
+          transition: filter 350ms ease;
+        }
+
+        .workprocess-step:hover .workprocess-image > div:first-child {
+          filter: brightness(1.12);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .workprocess-heading,
+          .workprocess-step,
+          .workprocess-photo,
+          .workprocess-card,
+          .workprocess-step .workprocess-image > div:first-child {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+            filter: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
