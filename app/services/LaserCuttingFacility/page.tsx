@@ -17,32 +17,32 @@ const SIDEBAR_SERVICES = [
   {
     slug: "LaserCuttingFacility",
     title: "Laser Cutting Facility",
-    image: "/images/services/laser-cutting.jpg",
+    image: "/images/services/laser.webp",
   },
   {
     slug: "PlasmaCuttingFacility",
     title: "Plasma Cutting Facility",
-    image: "/images/services/plasma-cutting.jpg",
+    image: "/images/services/plasma.webp",
   },
   {
     slug: "BendingFacility",
     title: "Bending Facility",
-    image: "/images/services/bending.jpg",
+    image: "/images/services/bending.webp",
   },
   {
     slug: "WeldingFacility",
     title: "Welding Facility",
-    image: "/images/services/welding.jpg",
+    image: "/images/services/welding.webp",
   },
   {
-    slug: "FabricationAssembly",
+    slug: "Fabrication&Assembly",
     title: "Fabrication & Assembly",
-    image: "/images/services/fabrication.jpg",
+    image: "/images/services/fabrication.webp",
   },
   {
-    slug: "Infrastructure",
+    slug: "WellEquippedInfrastructure",
     title: "Well Equipped Infrastructure with Design Centre",
-    image: "/images/services/infrastructure.jpg",
+    image: "/images/services/machined.webp",
   },
 ];
 

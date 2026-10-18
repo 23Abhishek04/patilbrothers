@@ -126,19 +126,21 @@ export default function Footer() {
         <div className="footer-grid grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.9fr_1fr_1.2fr_1.3fr] lg:gap-0">
           {/* Brand */}
           <div className="lg:pr-10">
-            <Link href="/" className="flex items-center gap-4" aria-label="Patil Brothers home">
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-red-500 to-red-800 ring-2 ring-white/80 sm:h-16 sm:w-16">
-                <span className="text-3xl font-black italic text-white">P</span>
-              </span>
-              <span className="flex flex-col leading-none">
-                <span className="text-3xl font-black uppercase tracking-wide sm:text-4xl">
-                  Patil
-                </span>
-                <span className="mt-1.5 text-xs font-bold uppercase tracking-[0.4em] text-[#ff3945] sm:text-sm">
-                  Brothers
-                </span>
-              </span>
-            </Link>
+            <Link
+  href="/"
+  className="flex items-center"
+  aria-label="Patil Brothers home"
+>
+  <Image
+    src="/images/logo.png"
+    alt="Patil Brothers"
+    width={220}
+    height={90}
+    priority
+    className="h-12 w-auto object-contain sm:h-14 lg:h-16"
+    sizes="(max-width: 640px) 160px, 220px"
+  />
+</Link>
 
             <p className="mt-6 max-w-sm text-[15px] leading-relaxed text-[#d2d6db]">
               High-precision sheet metal fabrication and custom manufacturing solutions for

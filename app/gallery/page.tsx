@@ -1,5 +1,5 @@
 import Image from "next/image";
-import GalleryHero from "@/components/GalleryHero";
+import GalleryHero from "@/app/gallery/GalleryHero";
 
 const galleryImages = [
   {

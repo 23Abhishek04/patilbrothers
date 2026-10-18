@@ -11,7 +11,7 @@ import {
   ArrowRight,
   Factory,
 } from "lucide-react";
-import ContactHero from "@/components/ContactHero";
+import ContactHero from "@/app/contact/ContactHero";
 
 /* ---------- small pieces ---------- */
 

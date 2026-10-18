@@ -94,7 +94,7 @@ export default function Welcome() {
             {/* Large image */}
             <div className="welcome-photo relative row-span-2 min-h-[340px] sm:min-h-[460px] lg:min-h-[500px]">
               <Image
-                src="/images/welcome-1.jpg"
+                src="/images/welcome-1.png"
                 alt="CNC laser cutting machine in operation"
                 fill
                 sizes="(min-width:1024px) 35vw, 70vw"
@@ -120,7 +120,7 @@ export default function Welcome() {
             {/* Top right image */}
             <div className="welcome-photo welcome-photo-delay-1 relative min-h-[165px] sm:min-h-[225px] lg:min-h-[245px]">
               <Image
-                src="/images/welcome-2.jpg"
+                src="/images/welcome-2.png"
                 alt="Precision bent sheet metal parts"
                 fill
                 sizes="(min-width:1024px) 20vw, 30vw"
@@ -131,7 +131,7 @@ export default function Welcome() {
             {/* Bottom right image */}
             <div className="welcome-photo welcome-photo-delay-2 relative min-h-[165px] sm:min-h-[225px] lg:min-h-[245px]">
               <Image
-                src="/images/welcome-3.jpg"
+                src="/images/welcome-3.png"
                 alt="Welder working on metal fabrication"
                 fill
                 sizes="(min-width:1024px) 20vw, 30vw"
