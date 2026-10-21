@@ -26,7 +26,7 @@ export default function ContactHero() {
     >
       {/* Background image */}
       <Image
-        src="/images/about-hero-bg.png"
+        src="/images/contactus-hero.png"
         alt="Precision laser cutting at Patil Brothers"
         fill
         priority

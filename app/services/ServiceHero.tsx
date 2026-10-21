@@ -25,7 +25,7 @@ export default function ServiceHero() {
       }`}
     >
       <Image
-        src="/images/about-hero-bg.png"
+        src="/images/services-hero.png"
         alt="Precision sheet metal fabrication at Patil Brothers"
         fill
         priority

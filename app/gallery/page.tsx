@@ -3,19 +3,39 @@ import GalleryHero from "@/app/gallery/GalleryHero";
 
 const galleryImages = [
   {
-    src: "/images/work_process_images/01-share-your-requirements.png",
+    src: "/images/gallery/1.png",
     alt: "Project requirements and consultation",
   },
   {
-    src: "/images/work_process_images/02-get-a-quote.png",
+    src: "/images/gallery/2.png",
     alt: "Project quotation and engineering planning",
   },
   {
-    src: "/images/work_process_images/03-production.png",
+    src: "/images/gallery/3.png",
     alt: "Precision manufacturing and production",
   },
   {
-    src: "/images/work_process_images/04-delivery.png",
+    src: "/images/gallery/4.png",
+    alt: "Finished project and delivery",
+  },
+    {
+    src: "/images/gallery/5.png",
+    alt: "Finished project and delivery",
+  },
+    {
+    src: "/images/gallery/6.png",
+    alt: "Finished project and delivery",
+  },
+    {
+    src: "/images/gallery/7.png",
+    alt: "Finished project and delivery",
+  },
+    {
+    src: "/images/gallery/8.png",
+    alt: "Finished project and delivery",
+  },
+    {
+    src: "/images/gallery/9.png",
     alt: "Finished project and delivery",
   },
 ];
@@ -26,7 +46,7 @@ export default function GalleryPage() {
       <GalleryHero />
 
       <section aria-label="Project gallery" className="bg-white px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
-        <div className="mx-auto grid max-w-[1240px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mx-auto grid max-w-[1240px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
           {galleryImages.map((image, index) => (
             <div
               key={image.src}

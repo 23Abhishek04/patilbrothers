@@ -25,7 +25,7 @@ export default function LaserCuttingHero() {
       }`}
     >
       <Image
-        src="/images/about-hero-bg.png"
+        src="/images/Lasercutting-hero.png"
         alt="Precision laser cutting and sheet metal fabrication at Patil Brothers"
         fill
         priority

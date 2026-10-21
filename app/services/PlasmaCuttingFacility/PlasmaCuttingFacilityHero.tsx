@@ -25,7 +25,7 @@ export default function PlasmaCuttingHero() {
       }`}
     >
       <Image
-        src="/images/about-hero-bg.png"
+        src="/images/PlasmaCutting-hero.png"
         alt="Plasma cutting and sheet metal fabrication at Patil Brothers"
         fill
         priority

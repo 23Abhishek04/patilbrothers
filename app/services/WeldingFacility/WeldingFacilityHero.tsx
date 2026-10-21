@@ -25,7 +25,7 @@ export default function WeldingFacilityHero() {
       }`}
     >
       <Image
-        src="/images/about-hero-bg.png"
+        src="/images/Welding-Hero.png"
         alt="Professional industrial welding and metal fabrication at Patil Brothers"
         fill
         priority

@@ -25,7 +25,7 @@ export default function BendingFacilityHero() {
       }`}
     >
       <Image
-        src="/images/about-hero-bg.png"
+        src="/images/Bending-Hero.png"
         alt="Precision sheet metal bending and fabrication at Patil Brothers"
         fill
         priority

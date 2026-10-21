@@ -25,7 +25,7 @@ export default function GalleryHero() {
       }`}
     >
       <Image
-        src="/images/about-hero-bg.png"
+        src="/images/gallery-hero.png"
         alt="Industrial sheet metal fabrication and precision manufacturing at Patil Brothers"
         fill
         priority

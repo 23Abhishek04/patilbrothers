@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -7,101 +8,90 @@ export default function WellEquippedInfrastructureHero() {
   const [entered, setEntered] = useState(false);
 
   useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      setEntered(true);
+      return;
+    }
+
     const frame = window.requestAnimationFrame(() => setEntered(true));
     return () => window.cancelAnimationFrame(frame);
   }, []);
 
   return (
     <section
-      aria-labelledby="infrastructure-hero-title"
-      className={`infrastructure-hero relative isolate flex min-h-[410px] items-center overflow-hidden bg-[#111316] pt-28 sm:min-h-[460px] sm:pt-32 lg:min-h-[510px] lg:pt-36 ${
-        entered ? "is-entered" : ""
+      className={`infrastructure-hero relative isolate flex min-h-[560px] w-full items-center overflow-hidden bg-[#17191d] sm:min-h-[620px] lg:min-h-[700px] ${
+        entered ? "infrastructure-hero-entered" : ""
       }`}
     >
-      <div
-        aria-hidden="true"
-        className="infrastructure-hero__background absolute inset-0 -z-20"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0b0d10]/95 via-[#111316]/80 to-[#111316]/45"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-t from-[#111316]/75 via-transparent to-black/10"
+      <Image
+        src="/images/Infrastructure-Hero.png"
+        alt="Well-equipped industrial infrastructure and design centre at Patil Brothers"
+        fill
+        priority
+        sizes="100vw"
+        className="infrastructure-hero-image -z-30 object-cover object-[62%_center]"
       />
 
-      <div className="mx-auto w-full max-w-[1440px] px-5 pb-16 pt-8 sm:px-8 sm:pb-20 lg:px-12 lg:pb-24">
-        <nav
-          aria-label="Breadcrumb"
-          className="infrastructure-hero__item mb-7 flex flex-wrap items-center gap-2 text-xs font-medium text-white/65 sm:text-sm"
-          style={{ "--hero-delay": "80ms" } as React.CSSProperties}
-        >
-          <Link href="/" className="transition-colors hover:text-white">
-            Home
-          </Link>
-          <span aria-hidden="true" className="text-[#e31e2f]">/</span>
-          <Link href="/services" className="transition-colors hover:text-white">
-            Services
-          </Link>
-          <span aria-hidden="true" className="text-[#e31e2f]">/</span>
-          <span aria-current="page" className="max-w-full text-white">
-            Well Equipped Infrastructure with Design Centre
-          </span>
-        </nav>
+      <div className="absolute inset-0 -z-20 bg-gradient-to-r from-[#17191d]/95 via-[#17191d]/75 to-[#17191d]/20 max-md:from-[#17191d]/90 max-md:via-[#17191d]/75 max-md:to-[#17191d]/55" />
+      <div className="absolute inset-0 -z-20 bg-gradient-to-t from-[#17191d]/70 via-transparent to-[#17191d]/30" />
 
-        <div className="max-w-5xl">
-          <div
-            className="infrastructure-hero__item mb-5 flex items-center gap-3"
-            style={{ "--hero-delay": "160ms" } as React.CSSProperties}
-          >
-            <span className="h-0.5 w-9 bg-[#e31e2f]" />
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/75 sm:text-sm">
-              Advanced Manufacturing &amp; Design
-            </p>
-          </div>
+      <div className="pointer-events-none absolute -left-16 top-0 -z-10 h-[48%] w-36 -skew-x-[22deg] bg-gradient-to-b from-red-700/50 to-transparent sm:w-52" />
+      <div className="pointer-events-none absolute -right-24 top-0 -z-10 hidden h-[70%] w-56 -skew-x-[22deg] bg-gradient-to-b from-red-700/30 to-transparent lg:block" />
+      <div className="pointer-events-none absolute bottom-0 left-0 -z-10 h-px w-full bg-gradient-to-r from-red-600/70 via-white/10 to-transparent" />
 
-          <h1
-            id="infrastructure-hero-title"
-            className="infrastructure-hero__item text-3xl font-black leading-[1.08] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl"
-            style={{ "--hero-delay": "240ms" } as React.CSSProperties}
-          >
-            Well Equipped Infrastructure{" "}
-            <span className="text-[#e31e2f]">with Design Centre</span>
-          </h1>
+      <div className="infrastructure-hero-content mx-auto w-full max-w-[1440px] px-5 pb-16 pt-36 sm:px-8 sm:pb-20 sm:pt-40 lg:px-12 lg:pb-24 lg:pt-44">
+        <div className="infrastructure-hero-copy max-w-4xl">
+          <nav aria-label="Breadcrumb" className="infrastructure-hero-breadcrumb mb-7">
+            <ol className="inline-flex flex-wrap items-center gap-3 rounded-full border border-white/20 bg-[#17191d]/55 px-5 py-3 text-xs font-medium uppercase tracking-[0.16em] text-white/75 backdrop-blur-md sm:text-sm">
+              <li>
+                <Link href="/" className="transition hover:text-white">
+                  Home
+                </Link>
+              </li>
+              <li aria-hidden="true" className="text-white/40">/</li>
+              <li>
+                <Link href="/services" className="transition hover:text-white">
+                  Services
+                </Link>
+              </li>
+              <li aria-hidden="true" className="text-white/40">/</li>
+              <li aria-current="page" className="text-[#ff303b]">
+                Infrastructure
+              </li>
+            </ol>
+          </nav>
 
-          <div
-            className="infrastructure-hero__item mt-6 h-1 w-20 rounded-full bg-[#e31e2f] sm:mt-7"
-            style={{ "--hero-delay": "320ms" } as React.CSSProperties}
-          />
-
-          <p
-            className="infrastructure-hero__item mt-6 max-w-3xl text-sm leading-7 text-white/75 sm:mt-7 sm:text-base sm:leading-8 lg:text-lg"
-            style={{ "--hero-delay": "400ms" } as React.CSSProperties}
-          >
-            Modern manufacturing infrastructure and design capabilities,
-            combining advanced equipment, experienced professionals, and
-            precision processes from concept through production.
+          <p className="infrastructure-hero-eyebrow mb-4 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/75 sm:text-sm">
+            <span className="h-0.5 w-10 bg-[#e31e2f]" />
+            Advanced Manufacturing
           </p>
 
-          <div
-            className="infrastructure-hero__item mt-8 flex flex-wrap items-center gap-4 sm:mt-9"
-            style={{ "--hero-delay": "480ms" } as React.CSSProperties}
-          >
+          <h1 className="infrastructure-hero-title text-4xl font-black uppercase leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-8xl">
+            Well-Equipped <span className="text-[#ff303b]">Infrastructure</span>
+          </h1>
+
+          <div className="infrastructure-hero-rule mt-6 h-1 w-20 rounded-full bg-[#e31e2f]" />
+
+          <p className="infrastructure-hero-description mt-6 max-w-2xl text-base leading-relaxed text-[#d4d7db] sm:text-lg lg:text-xl">
+            Modern machinery, skilled specialists, and an integrated design centre deliver precision, quality, and efficient manufacturing solutions from concept to completion.
+          </p>
+
+          <div className="infrastructure-hero-cta mt-8 flex flex-wrap items-center gap-4">
             <Link
               href="/contact"
-              className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-[#e31e2f] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-red-950/25 transition duration-300 hover:-translate-y-1 hover:bg-[#c91828] hover:shadow-xl hover:shadow-red-950/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111316] sm:px-7"
+              className="group inline-flex items-center gap-3 rounded-lg bg-[#e31e2f] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-red-950/25 transition hover:bg-red-700 sm:px-7"
             >
               Request a Quote
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth={2.2}
+                strokeWidth={2}
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className="h-5 w-5 transition-transform group-hover:translate-x-1"
                 aria-hidden="true"
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
               >
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
@@ -111,42 +101,37 @@ export default function WellEquippedInfrastructureHero() {
       </div>
 
       <style>{`
-        .infrastructure-hero__background {
-          background-image: url("/images/about-hero-bg.png");
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: cover;
-          transform: scale(1.08);
-          transition: transform 1600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+        .infrastructure-hero-image {
+          transform: scale(1.045);
+          opacity: 0.65;
+          transition: transform 1600ms cubic-bezier(0.22, 1, 0.36, 1), opacity 1000ms ease;
         }
-
-        .infrastructure-hero.is-entered .infrastructure-hero__background {
+        .infrastructure-hero-entered .infrastructure-hero-image {
           transform: scale(1);
-        }
-
-        .infrastructure-hero__item {
-          opacity: 0;
-          transform: translateY(20px);
-          transition:
-            opacity 650ms ease,
-            transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
-          transition-delay: var(--hero-delay, 0ms);
-        }
-
-        .infrastructure-hero.is-entered .infrastructure-hero__item {
           opacity: 1;
-          transform: translateY(0);
         }
-
-        @media (max-width: 640px) {
-          .infrastructure-hero__background {
-            background-position: 58% center;
-          }
+        .infrastructure-hero-copy > * {
+          opacity: 0;
+          transform: translateY(22px);
+          transition: opacity 700ms ease, transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
         }
-
+        .infrastructure-hero-entered .infrastructure-hero-breadcrumb { opacity: 1; transform: translateY(0); transition-delay: 100ms; }
+        .infrastructure-hero-entered .infrastructure-hero-eyebrow { opacity: 1; transform: translateY(0); transition-delay: 220ms; }
+        .infrastructure-hero-entered .infrastructure-hero-title { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+        .infrastructure-hero-entered .infrastructure-hero-rule { opacity: 1; transform: translateY(0); transition-delay: 430ms; }
+        .infrastructure-hero-entered .infrastructure-hero-description { opacity: 1; transform: translateY(0); transition-delay: 520ms; }
+        .infrastructure-hero-entered .infrastructure-hero-cta { opacity: 1; transform: translateY(0); transition-delay: 650ms; }
+        .infrastructure-hero-cta a {
+          transition: background-color 250ms ease, transform 250ms ease, box-shadow 250ms ease;
+        }
+        .infrastructure-hero-cta a:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 14px 28px -12px rgba(220, 38, 38, 0.65);
+        }
         @media (prefers-reduced-motion: reduce) {
-          .infrastructure-hero__background,
-          .infrastructure-hero__item {
+          .infrastructure-hero-image,
+          .infrastructure-hero-copy > *,
+          .infrastructure-hero-cta a {
             opacity: 1 !important;
             transform: none !important;
             transition: none !important;

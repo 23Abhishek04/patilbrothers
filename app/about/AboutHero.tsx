@@ -26,7 +26,7 @@ export default function AboutHero() {
     >
       {/* Banner image */}
       <Image
-        src="/images/about-hero-bg.png"
+        src="/images/about-hero.png"
         alt="Precision laser cutting sheet metal at Patil Brothers"
         fill
         priority
