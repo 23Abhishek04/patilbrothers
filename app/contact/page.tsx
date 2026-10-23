@@ -240,20 +240,38 @@ export default function Contact() {
     e.preventDefault();
     setStatus("sending");
 
+    // WhatsApp requires the visitor to press Send in WhatsApp; websites cannot
+    // silently send WhatsApp messages through a normal wa.me link.
+    const whatsappMessage = [
+      "New website enquiry - Patil Brothers",
+      `Name: ${form.name}`,
+      `Company: ${form.company || "Not provided"}`,
+      `Email: ${form.email}`,
+      `Phone: ${form.phone || "Not provided"}`,
+      `Subject: ${form.subject || "Not provided"}`,
+      `Message: ${form.message}`,
+    ].join("\n");
+
+    const whatsappUrl = `https://wa.me/919595880764?text=${encodeURIComponent(whatsappMessage)}`;
+    // Open synchronously from the submit event so popup blockers are less likely to block it.
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+
     try {
-      // Replace this simulation with your contact API when ready.
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok) {
+        const result = await response.json().catch(() => null);
+        throw new Error(result?.error || "Email could not be sent.");
+      }
 
       setStatus("sent");
-      setForm({
-        name: "",
-        company: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
-    } catch {
+      setForm({ name: "", company: "", email: "", phone: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("Contact form submission failed:", error);
       setStatus("error");
     }
   }
@@ -412,13 +430,13 @@ export default function Contact() {
                 >
                   {status === "sent" && (
                     <span className="text-green-600">
-                      Thanks! We’ll get back to you shortly.
+                      Email sent successfully. WhatsApp has opened with your enquiry; press Send there to deliver it.
                     </span>
                   )}
 
                   {status === "error" && (
                     <span className="text-red-600">
-                      Something went wrong. Please try again.
+                      Email could not be sent. WhatsApp may have opened with your enquiry; press Send there, then check your email configuration and try again.
                     </span>
                   )}
                 </p>
