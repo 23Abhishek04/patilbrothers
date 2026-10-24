@@ -63,7 +63,7 @@ const iconProps = {
 };
 
 const MAP_SRC =
-  "https://www.google.com/maps?q=S-230%2F1%2C+S-Block%2C+MIDC%2C+Bhosari%2C+Pune+411026&output=embed";
+  "https://www.google.com/maps?q=Sr.+No.+230%2F7%2C+S-Block%2C+MIDC%2C+Bhosari+411026&output=embed";
 
 function ChevronIcon() {
   return (
@@ -249,7 +249,7 @@ export default function Footer() {
                   </svg>
                 }
               >
-                S-230/1, S-Block, MIDC,
+                Sr. No. 230/7, S-Block, MIDC,
                 <br />
                 Bhosari, Pune – 411026
               </ContactRow>

@@ -90,104 +90,19 @@ function Field({
 /* ---------- light map card ---------- */
 
 function MapCard() {
+  const mapSrc =
+    "https://www.google.com/maps?q=Sr.+No.+230%2F7%2C+S-Block%2C+MIDC%2C+Bhosari+411026&output=embed";
+
   return (
-    <div className="contact-map-card relative h-[280px] overflow-hidden rounded-2xl border border-gray-200 bg-[#f7f8fa] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] sm:h-[300px] lg:h-[295px]">
-      <svg
-        className="absolute inset-0 h-full w-full"
-        viewBox="0 0 920 295"
-        preserveAspectRatio="xMidYMid slice"
-        aria-hidden="true"
-      >
-        {/* light map background */}
-        <rect width="920" height="295" fill="#f7f8fa" />
-        {/* parks / open areas */}
-        <path d="M0 0 H235 L190 72 L95 95 L0 65 Z" fill="#e7efe5" />
-        <path d="M640 180 L920 140 V295 H690 Z" fill="#e7efe5" />
-        {/* local roads */}
-        <g fill="none" stroke="#ffffff" strokeWidth="14" strokeLinecap="round">
-          <path d="M30 20 L190 160 L120 240" />
-          <path d="M310 0 L520 330" />
-          <path d="M60 140 L420 20" />
-        </g>
-        <g fill="none" stroke="#d8dde3" strokeWidth="5">
-          <path d="M0 200 L260 110 L640 -20" />
-          <path d="M660 0 L700 295" />
-          <path d="M120 40 L420 300" />
-          <path d="M360 160 L560 120 L760 140" />
-          <path d="M440 220 L640 240 L900 200" />
-          <path d="M240 260 L330 200" />
-        </g>
-        {/* main road and highway */}
-        <path d="M330 0 L560 295" stroke="#c5cbd3" strokeWidth="9" fill="none" />
-        <path d="M757 0 L800 295" stroke="#f0c477" strokeWidth="14" fill="none" />
-        {/* buildings */}
-        <g fill="#e1e5e9">
-          <path d="M150 115 h60 v35 h-60z" />
-          <path d="M175 160 h40 v28 h-40z" />
-          <path d="M640 150 h70 v50 h-70z" />
-        </g>
-      </svg>
-
-      <span className="absolute left-[24%] top-[26%] text-[13px] font-medium text-gray-700">
-        MIDC Bhosari
-      </span>
-      <span className="absolute left-[27%] top-[43%] text-center text-[13px] font-medium leading-tight text-gray-700">
-        S BLOCK
-        <br />
-        MIDC
-      </span>
-      <span className="absolute left-[2%] top-[49%] -rotate-[24deg] text-[13px] font-medium text-gray-600">
-        Spine Rd
-      </span>
-      <span className="absolute left-[39%] top-[58%] hidden text-[12px] text-gray-500 sm:block">
-        Pimpri-Chinchwad
-      </span>
-      <span className="absolute left-[64%] top-[28%] hidden origin-left rotate-90 text-[11px] text-gray-500 md:block">
-        Sonawane Rd
-      </span>
-      <span className="absolute left-[91%] top-[12%] hidden origin-left rotate-90 text-[11px] font-medium text-gray-600 sm:block">
-        Mumbai-Pune Expy
-      </span>
-
-      <div className="absolute left-[45%] top-[17%] flex items-center sm:left-[49%]">
-        <MapPin
-          className="relative z-10 -mr-2 h-9 w-9 fill-red-600 text-red-600 drop-shadow"
-          strokeWidth={1.5}
-        />
-        <span className="rounded-full bg-white py-2 pl-4 pr-5 text-[13px] font-semibold text-gray-900 shadow-md ring-1 ring-gray-200">
-          Patil Brothers
-        </span>
-      </div>
-
-      <div className="absolute bottom-3 left-3 flex max-w-[calc(100%-6.5rem)] items-center gap-4 rounded-xl border border-gray-200 bg-white/95 px-5 py-4 shadow-md sm:bottom-4 sm:left-4 sm:max-w-[320px]">
-        <Factory className="h-9 w-9 shrink-0 text-red-600" strokeWidth={1.8} />
-        <div className="text-[13px] leading-snug text-gray-600">
-          <p className="mb-0.5 text-[15px] font-bold text-gray-900">
-            Patil Brothers
-          </p>
-          S-230/1, S-Block, MIDC,
-          <br />
-          Bhosari, Pune – 411026
-        </div>
-      </div>
-
-      <div className="absolute bottom-3 right-3 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-md sm:bottom-4 sm:right-4">
-        <button
-          type="button"
-          aria-label="Zoom in"
-          className="flex h-11 w-11 items-center justify-center text-gray-700 transition hover:bg-gray-100"
-        >
-          <Plus className="h-5 w-5" />
-        </button>
-        <div className="h-px bg-gray-200" />
-        <button
-          type="button"
-          aria-label="Zoom out"
-          className="flex h-11 w-11 items-center justify-center text-gray-700 transition hover:bg-gray-100"
-        >
-          <Minus className="h-5 w-5" />
-        </button>
-      </div>
+    <div className="contact-map-card relative h-[280px] overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] sm:h-[300px] lg:h-[295px]">
+      <iframe
+        src={mapSrc}
+        title="Patil Brothers location on Google Maps"
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        allowFullScreen
+        className="h-full w-full border-0"
+      />
     </div>
   );
 }
@@ -236,12 +151,10 @@ export default function Contact() {
   const set = (k: keyof typeof form) => (v: string) =>
     setForm((f) => ({ ...f, [k]: v }));
 
-  async function onSubmit(e: FormEvent) {
+  function onSubmit(e: FormEvent) {
     e.preventDefault();
-    setStatus("sending");
 
-    // WhatsApp requires the visitor to press Send in WhatsApp; websites cannot
-    // silently send WhatsApp messages through a normal wa.me link.
+    // WhatsApp only: the visitor must press Send in WhatsApp to deliver the enquiry.
     const whatsappMessage = [
       "New website enquiry - Patil Brothers",
       `Name: ${form.name}`,
@@ -250,30 +163,14 @@ export default function Contact() {
       `Phone: ${form.phone || "Not provided"}`,
       `Subject: ${form.subject || "Not provided"}`,
       `Message: ${form.message}`,
-    ].join("\n");
+    ].join("\\n");
 
     const whatsappUrl = `https://wa.me/919595880764?text=${encodeURIComponent(whatsappMessage)}`;
-    // Open synchronously from the submit event so popup blockers are less likely to block it.
+    // Open directly from the submit event to reduce the chance of popup blocking.
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      if (!response.ok) {
-        const result = await response.json().catch(() => null);
-        throw new Error(result?.error || "Email could not be sent.");
-      }
-
-      setStatus("sent");
-      setForm({ name: "", company: "", email: "", phone: "", subject: "", message: "" });
-    } catch (error) {
-      console.error("Contact form submission failed:", error);
-      setStatus("error");
-    }
+    setStatus("sent");
+    setForm({ name: "", company: "", email: "", phone: "", subject: "", message: "" });
   }
 
   return (
@@ -419,7 +316,7 @@ export default function Contact() {
                   disabled={status === "sending"}
                   className="group inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-[#17191d] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2 disabled:opacity-70"
                 >
-                  {status === "sending" ? "Sending…" : "Send Message"}
+                  Send Message
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </button>
 
@@ -430,13 +327,7 @@ export default function Contact() {
                 >
                   {status === "sent" && (
                     <span className="text-green-600">
-                      Email sent successfully. WhatsApp has opened with your enquiry; press Send there to deliver it.
-                    </span>
-                  )}
-
-                  {status === "error" && (
-                    <span className="text-red-600">
-                      Email could not be sent. WhatsApp may have opened with your enquiry; press Send there, then check your email configuration and try again.
+                      Your message has been sent successfully.
                     </span>
                   )}
                 </p>

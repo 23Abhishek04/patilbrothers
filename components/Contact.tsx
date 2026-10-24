@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { Phone, Mail, MapPin, Plus, Minus, ArrowRight, Factory } from "lucide-react";
+import { Phone, Mail, MapPin, ArrowRight } from "lucide-react";
 
 const BG_IMAGE = "/images/contact-bg.png";
 
@@ -92,88 +92,22 @@ function Field({ name, label, required, type = "text", textarea, value, onChange
   );
 }
 
-/* ---------- light map card ---------- */
+/* ---------- live Google Maps card ---------- */
+
+const MAP_SRC =
+  "https://www.google.com/maps?q=Sr.%20No.%20230%2F7%2C%20S-Block%2C%20MIDC%2C%20Bhosari%20411026&output=embed";
 
 function MapCard() {
   return (
-    <div className="relative h-[280px] overflow-hidden rounded-2xl border border-gray-200 bg-[#f8fafc] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.18)] sm:h-[300px] lg:h-[295px]">
-      {/* roads */}
-      <svg
-        className="absolute inset-0 h-full w-full"
-        viewBox="0 0 920 295"
-        preserveAspectRatio="xMidYMid slice"
-        aria-hidden
-      >
-        <g fill="none" stroke="#e2e8f0" strokeWidth="14" strokeLinecap="round">
-          <path d="M30 20 L190 160 L120 240" />
-          <path d="M310 0 L520 330" />
-          <path d="M60 140 L420 20" />
-        </g>
-        <g fill="none" stroke="#cbd5e1" strokeWidth="5">
-          <path d="M0 200 L260 110 L640 -20" />
-          <path d="M660 0 L700 295" />
-          <path d="M120 40 L420 300" />
-          <path d="M360 160 L560 120 L760 140" />
-          <path d="M440 220 L640 240 L900 200" />
-          <path d="M240 260 L330 200" />
-        </g>
-        {/* big diagonal */}
-        <path d="M330 0 L560 295" stroke="#b8c4d1" strokeWidth="9" fill="none" />
-        {/* expressway */}
-        <path d="M757 0 L800 295" stroke="#f0c36d" strokeWidth="14" fill="none" />
-        {/* blocks */}
-        <g fill="#e5eaf0">
-          <path d="M150 115 h60 v35 h-60z" />
-          <path d="M175 160 h40 v28 h-40z" />
-          <path d="M640 150 h70 v50 h-70z" />
-        </g>
-      </svg>
-
-      {/* labels */}
-      <span className="absolute left-[24%] top-[26%] text-[13px] font-medium text-gray-700">MIDC Bhosari</span>
-      <span className="absolute left-[27%] top-[43%] text-center text-[13px] font-medium leading-tight text-gray-700">
-        S BLOCK<br />MIDC
-      </span>
-      <span className="absolute left-[2%] top-[49%] -rotate-[24deg] text-[13px] font-medium text-gray-600">
-        Spine Rd
-      </span>
-      <span className="absolute left-[39%] top-[58%] hidden text-[12px] text-gray-500 sm:block">Pimpri-Chinchwad</span>
-      <span className="absolute left-[64%] top-[28%] hidden origin-left rotate-90 text-[11px] text-gray-500 md:block">
-        Sonawane Rd
-      </span>
-      <span className="absolute left-[91%] top-[12%] hidden origin-left rotate-90 text-[11px] font-medium text-gray-600 sm:block">
-        Mumbai-Pune Expy
-      </span>
-
-      {/* pin */}
-      <div className="absolute left-[45%] top-[17%] flex items-center sm:left-[49%]">
-        <MapPin className="relative z-10 h-9 w-9 -mr-2 fill-red-600 text-red-600 drop-shadow" strokeWidth={1.5} />
-        <span className="rounded-full bg-white py-2 pl-4 pr-5 text-[13px] font-semibold text-gray-900 shadow-lg">
-          Patil Brothers
-        </span>
-      </div>
-
-      {/* address card */}
-      <div className="absolute bottom-3 left-3 flex max-w-[calc(100%-6.5rem)] items-center gap-4 rounded-xl border border-gray-200 bg-white/95 px-5 py-4 shadow-lg sm:bottom-4 sm:left-4 sm:max-w-[320px]">
-        <Factory className="h-9 w-9 shrink-0 text-red-600" strokeWidth={1.8} />
-        <div className="text-[13px] leading-snug text-gray-600">
-          <p className="mb-0.5 text-[15px] font-bold text-gray-900">Patil Brothers</p>
-          S-230/1, S-Block, MIDC,
-          <br />
-          Bhosari, Pune – 411026
-        </div>
-      </div>
-
-      {/* zoom */}
-      <div className="absolute bottom-3 right-3 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-md sm:bottom-4 sm:right-4">
-        <button type="button" aria-label="Zoom in" className="flex h-11 w-11 items-center justify-center text-gray-700 hover:bg-gray-100">
-          <Plus className="h-5 w-5" />
-        </button>
-        <div className="h-px bg-gray-200" />
-        <button type="button" aria-label="Zoom out" className="flex h-11 w-11 items-center justify-center text-gray-700 hover:bg-gray-100">
-          <Minus className="h-5 w-5" />
-        </button>
-      </div>
+    <div className="contact-map-card relative h-[280px] overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-[0_20px_40px_-12px_rgba(0,0,0,0.18)] sm:h-[300px] lg:h-[295px]">
+      <iframe
+        src={MAP_SRC}
+        title="Patil Brothers location on Google Maps"
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        allowFullScreen
+        className="h-full w-full border-0"
+      />
     </div>
   );
 }
@@ -187,12 +121,6 @@ export default function Contact() {
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
-
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) {
-      setIsVisible(true);
-      return;
-    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -220,17 +148,37 @@ export default function Contact() {
 
   const set = (k: keyof typeof form) => (v: string) => setForm((f) => ({ ...f, [k]: v }));
 
-  async function onSubmit(e: FormEvent) {
+  function onSubmit(e: FormEvent) {
     e.preventDefault();
-    setStatus("sending");
-    try {
-      // TODO: replace with your API route, e.g. fetch("/api/contact", { method: "POST", body: JSON.stringify(form) })
-      await new Promise((r) => setTimeout(r, 800));
-      setStatus("sent");
-      setForm({ name: "", company: "", email: "", phone: "", subject: "", message: "" });
-    } catch {
-      setStatus("error");
-    }
+
+    // WhatsApp only: the visitor must press Send in WhatsApp to deliver the enquiry.
+    const whatsappMessage = `
+New Website Enquiry - Patil Brothers
+
+Name: ${form.name}
+Company: ${form.company || "Not provided"}
+Email: ${form.email}
+Phone: ${form.phone || "Not provided"}
+Subject: ${form.subject || "General enquiry"}
+
+Message:
+${form.message}
+    `.trim();
+
+    const whatsappUrl = `https://wa.me/919595880764?text=${encodeURIComponent(whatsappMessage)}`;
+
+    // Open WhatsApp directly from the form submission interaction.
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+
+    setStatus("sent");
+    setForm({
+      name: "",
+      company: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    });
   }
 
   return (
@@ -286,14 +234,14 @@ export default function Contact() {
             </div>
             <div className="xl:border-l xl:border-gray-200 xl:px-6">
               <InfoItem icon={<Mail className="h-5 w-5" />} label="Email Us">
-                <a href="mailto:patilbrothers@gmail.com" className="break-all hover:text-red-600">
-                  patilbrothers@gmail.com
+                <a href="mailto:patilbrothers30@gmail.com" className="break-all hover:text-red-600">
+                  patilbrothers30@gmail.com
                 </a>
               </InfoItem>
             </div>
             <div className="sm:col-span-2 xl:col-span-1 xl:border-l xl:border-gray-200 xl:pl-6">
               <InfoItem icon={<MapPin className="h-5 w-5 fill-red-600" />} label="Our Location">
-                S-230/1, S-Block, MIDC,
+                Sr. No. 230/7, S-Block, MIDC,
                 <br />
                 Bhosari, Pune – 411026
               </InfoItem>
@@ -337,13 +285,13 @@ export default function Contact() {
                 disabled={status === "sending"}
                 className="group flex h-[58px] w-full items-center justify-center gap-3 rounded-[4px] bg-gradient-to-b from-red-600 to-red-700 text-[17px] font-semibold text-white shadow-md transition hover:from-red-500 hover:to-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2 disabled:opacity-70"
               >
-                {status === "sending" ? "Sending…" : "Send Message"}
+                Send Message
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </button>
 
               <p role="status" aria-live="polite" className="min-h-[1.25rem] text-sm">
-                {status === "sent" && <span className="text-green-600">Thanks! We’ll get back to you shortly.</span>}
-                {status === "error" && <span className="text-red-600">Something went wrong. Please try again.</span>}
+                {status === "sent" && <span className="text-green-600">WhatsApp has opened with your enquiry. Press Send in WhatsApp to deliver it.</span>}
+                
               </p>
             </form>
           </div>
