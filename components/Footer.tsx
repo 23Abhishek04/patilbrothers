@@ -234,10 +234,10 @@ export default function Footer() {
                 }
               >
                 <a
-                  href="mailto:patilbrothers@gmail.com"
+                  href="mailto:patilbrothers30@gmail.com"
                   className="break-all transition hover:text-[#ff3945]"
                 >
-                  patilbrothers@gmail.com
+                  patilbrothers30@gmail.com
                 </a>
               </ContactRow>
 
