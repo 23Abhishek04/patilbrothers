@@ -14,17 +14,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-/**
- * Services.tsx — Next.js (App Router) + Tailwind CSS (v3.1+ / v4)
- *
- * Requires:  npm i lucide-react
- * Images:    put the six photos in /public/images/services/
- *            laser.webp, plasma.webp, bending.webp, welding.webp, fabrication.webp, machined.webp
- *            (the cards still render with a dark placeholder if a file is missing)
- *
- * Usage:     import Services from "@/components/Services";  <Services />
- */
-
 type Service = {
   title: string;
   desc: string;
@@ -39,52 +28,58 @@ const SERVICES: Service[] = [
     desc: "High-precision CNC laser cutting for complex profiles and clean edges.",
     image: "/images/services/laser.webp",
     icon: Zap,
-    href: "/services/cnc-laser-cutting",
+    href: "/services/LaserCuttingFacility",
   },
   {
     title: "Plasma Cutting",
     desc: "Efficient plasma cutting for thicker materials and custom shapes.",
     image: "/images/services/plasma.webp",
     icon: Flame,
-    href: "/services/plasma-cutting",
+    href: "/services/PlasmaCuttingFacility",
   },
   {
     title: "Sheet Metal Bending",
     desc: "Accurate and consistent bending for high-quality components.",
     image: "/images/services/bending.webp",
     icon: Layers,
-    href: "/services/sheet-metal-bending",
+    href: "/services/BendingFacility",
   },
   {
     title: "Welding & Assembly",
     desc: "Strong and durable welding with complete fabrication and assembly.",
     image: "/images/services/welding.webp",
     icon: Wrench,
-    href: "/services/welding-assembly",
+    href: "/services/WeldingFacility",
   },
   {
     title: "Custom Fabrication",
     desc: "Tailored sheet metal solutions to meet your specific requirements.",
     image: "/images/services/fabrication.webp",
     icon: Box,
-    href: "/services/custom-fabrication",
+    href: "/services/Fabrication&Assembly",
   },
   {
     title: "Machined Components",
     desc: "Precision components with high quality and tight tolerances.",
     image: "/images/services/machined.webp",
     icon: Settings,
-    href: "/services/machined-components",
+    href: "/services/WellEquippedInfrastructure",
   },
 ];
 
-function ServiceCard({ service, index }: { service: Service; index: number }) {
+function ServiceCard({
+  service,
+  index,
+}: {
+  service: Service;
+  index: number;
+}) {
   const Icon = service.icon;
   const number = String(index + 1).padStart(2, "0");
 
   return (
     <article className="services-card group relative overflow-hidden rounded-md bg-white shadow-[0_6px_24px_-8px_rgba(0,0,0,0.15)] ring-1 ring-black/[0.03]">
-      {/* image */}
+      {/* Image */}
       <div className="relative aspect-[16/7.6] w-full overflow-hidden bg-neutral-900">
         <Image
           src={service.image}
@@ -93,24 +88,25 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="services-photo object-cover"
         />
-        {/* red wedge on the left edge */}
+
+        {/* Red wedge */}
         <div
-          aria-hidden
+          aria-hidden="true"
           className="services-wedge absolute inset-0 bg-red-600/85"
           style={{ clipPath: "polygon(0 0, 28% 0, 0 78%)" }}
         />
       </div>
 
-      {/* body */}
+      {/* Card body */}
       <div className="relative px-5 pb-6 pt-0 sm:px-6">
-        {/* icon tile (overlaps image) */}
+        {/* Icon tile */}
         <span className="services-icon absolute -top-5 left-5 flex h-14 w-14 items-center justify-center rounded-lg border-[3px] border-white bg-red-600 text-white shadow-md sm:left-6">
           <Icon className="h-6 w-6" strokeWidth={1.8} />
         </span>
 
-        {/* big number */}
+        {/* Card number */}
         <span
-          aria-hidden
+          aria-hidden="true"
           className="pointer-events-none absolute right-5 top-3 select-none text-[52px] font-bold leading-none tracking-tight text-gray-200/80 sm:right-6"
         >
           {number}
@@ -146,9 +142,13 @@ export default function Services() {
     const section = sectionRef.current;
     if (!section) return;
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    // Reduced-motion styles are handled by CSS.
+    // No synchronous state update is needed here.
     if (reduceMotion) {
-      setIsVisible(true);
       return;
     }
 
@@ -159,10 +159,14 @@ export default function Services() {
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -35px 0px" }
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -35px 0px",
+      }
     );
 
     observer.observe(section);
+
     return () => observer.disconnect();
   }, []);
 
@@ -174,8 +178,11 @@ export default function Services() {
         isVisible ? "is-visible" : ""
       }`}
     >
-      {/* top-left red slash */}
-      <div aria-hidden className="pointer-events-none absolute left-0 top-0 hidden h-[220px] w-[160px] sm:block">
+      {/* Top-left red slash */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0 hidden h-[220px] w-[160px] sm:block"
+      >
         <div
           className="absolute inset-0 bg-gradient-to-b from-red-600 to-red-500"
           style={{ clipPath: "polygon(48% 20%, 92% 20%, 12% 78%, 0 78%)" }}
@@ -186,36 +193,46 @@ export default function Services() {
         />
       </div>
 
-      {/* dotted pattern top-right */}
+      {/* Dotted pattern */}
       <div
-        aria-hidden
+        aria-hidden="true"
         className="pointer-events-none absolute right-[5%] top-12 hidden h-[100px] w-[130px] lg:block"
         style={{
-          backgroundImage: "radial-gradient(circle, rgba(220,38,38,.55) 1.2px, transparent 1.5px)",
+          backgroundImage:
+            "radial-gradient(circle, rgba(220,38,38,.55) 1.2px, transparent 1.5px)",
           backgroundSize: "16px 16px",
         }}
       />
 
       <div className="services-content relative mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
-        {/* heading */}
+        {/* Heading */}
         <header className="services-heading mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-3">
             <span className="h-[3px] w-11 bg-red-600" />
-            <span className="text-sm font-semibold uppercase tracking-wide text-red-600">Services</span>
+            <span className="text-sm font-semibold uppercase tracking-wide text-red-600">
+              Services
+            </span>
           </div>
+
           <h2 className="mt-2 text-5xl font-extrabold leading-tight tracking-tight text-[#0b0d10] sm:text-6xl">
             What We <span className="text-red-600">Do</span>
           </h2>
+
           <p className="mx-auto mt-3 max-w-[780px] text-base leading-relaxed text-gray-600 sm:text-lg">
-            We provide end-to-end sheet metal fabrication solutions with precision, speed and
-            reliability, catering to diverse industrial needs.
+            We provide end-to-end sheet metal fabrication solutions with
+            precision, speed and reliability, catering to diverse industrial
+            needs.
           </p>
         </header>
 
-        {/* grid */}
+        {/* Services grid */}
         <div className="services-grid mt-10 grid gap-6 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-7">
-          {SERVICES.map((s, i) => (
-            <ServiceCard key={s.title} service={s} index={i} />
+          {SERVICES.map((service, index) => (
+            <ServiceCard
+              key={service.title}
+              service={service}
+              index={index}
+            />
           ))}
         </div>
       </div>
